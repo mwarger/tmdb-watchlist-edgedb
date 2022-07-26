@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/trpc-server-edgedb/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/trpc-server-edgedb",
+        "main": "libs/api/trpc-server-edgedb/src/index.ts",
+        "tsConfig": "libs/api/trpc-server-edgedb/tsconfig.lib.json",
+        "assets": ["libs/api/trpc-server-edgedb/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/trpc-server-edgedb/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/trpc-server-edgedb"],
+      "options": {
+        "jestConfig": "libs/api/trpc-server-edgedb/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

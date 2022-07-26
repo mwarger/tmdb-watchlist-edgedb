@@ -1,0 +1,5 @@
+{
+  "name": "@conference-demos/api/trpc-server-edgedb",
+  "version": "0.0.1",
+  "type": "commonjs"
+}

@@ -1,21 +1,34 @@
-# TMDB Watchlist
+# tmdb-watchlist-prisma
+
+This app uses TMDB to retrieve a list of Now Playing movies.  You can add/remove movies to track which ones you've watched.  There's a "fake" auth flow as well to show navigation as well as tRPC middleware.
 
 Simple app that showcases the following technology.
 
-Expo + TRPC + (Prisma || EdgeDB) on NextJS + Nx
-
----
+Expo + tRPC + Prisma + NextJS + Nx + zod + react-hook-form + solito
 
 
-Random Notes Below
+## Setup
 
-TMDB
-https://api.stoplight.io/v1/versions/9WaNJfGpnnQ76opqe/export/oas.json
+Add your database and TMDB bearer token (instructions [here](https://www.themoviedb.org/documentation/api?language=en-US)) to the `.env` file.  If you aren't using Postgres, make the appropriate changes to the Prisma schema.
 
-npx openapi-typescript https://api.stoplight.io/v1/versions/9WaNJfGpnnQ76opqe/export/oas.json --output tmdb-swagger.ts
+If you use Postgres, we setup for you a docker image so you can start right away
+Run `docker compose up` to start the PostgreSQL database (Assuming you have the docker deamon installed)
 
 
+## Running the App
 
-https://github.com/expo/eas-cli/issues/228#issuecomment-861407074
+### Run the API
 
-Must use `eas secret:create` to create a GOOGLE_SERVICES_BASE64 holding base64 output of google-services.json file.
+`nx serve next-app`
+
+### Run the App
+
+`nx run-ios mobile`
+
+### Screenshots
+
+<img src="./ss-splash.png" width="200" />
+<img src="./ss-signin.png" width="200"/>
+<img src="./ss-nowplaying.png" width="200"/>
+<img src="./ss-mywatchlist.png" width="200"/>
+<img src="./ss-signout.png" width="200"/>

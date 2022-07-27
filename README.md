@@ -1,18 +1,19 @@
-# tmdb-watchlist-prisma
+# tmdb-watchlist-edgedb
 
 This app uses TMDB to retrieve a list of Now Playing movies.  You can add/remove movies to track which ones you've watched.  There's a "fake" auth flow as well to show navigation as well as tRPC middleware.
 
 Simple app that showcases the following technology.
 
-Expo + tRPC + Prisma + NextJS + Nx + zod + react-hook-form + solito
+Expo + tRPC + EdgeDB + NextJS + Nx + zod + react-hook-form + solito
 
 
 ## Setup
 
 Add your database and TMDB bearer token (instructions [here](https://www.themoviedb.org/documentation/api?language=en-US)) to the `.env` file.  If you aren't using Postgres, make the appropriate changes to the Prisma schema.
 
-If you use Postgres, we setup for you a docker image so you can start right away
-Run `docker compose up` to start the PostgreSQL database (Assuming you have the docker deamon installed)
+Install EdgeDB for your system - https://www.edgedb.com/install
+
+Run `edgedb project init` in the root of the project to setup the existing schema in a new instance.
 
 
 ## Running the App

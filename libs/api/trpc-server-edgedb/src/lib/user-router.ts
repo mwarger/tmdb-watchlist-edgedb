@@ -43,8 +43,8 @@ export const userDataRouter = createRouter()
     input: z.object({
       id: z.string(),
     }),
-    async resolve({ ctx, input }) {
-      await deleteWatchlistItem({ movieId: input.id, userId: ctx.uid })
+    async resolve({ input }) {
+      await deleteWatchlistItem({ id: input.id })
     },
   })
   .query('watchlist', {
@@ -81,11 +81,10 @@ export const userDataRouter = createRouter()
 
       return {
         movies: movies.map((movie) => {
-          let watchListId = ''
-          watchListId =
+          const watchListId =
             watchList.find(
               (watchlistItem) => watchlistItem.movieId === movie.id.toString()
-            )?.movieId ?? ''
+            )?.id ?? ''
 
           return {
             ...movie,

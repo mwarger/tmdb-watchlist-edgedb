@@ -8363,10 +8363,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-edgedb@^0.20.10:
-  version "0.20.10"
-  resolved "https://registry.yarnpkg.com/edgedb/-/edgedb-0.20.10.tgz#660ef3c19e8696e57cff846331cd59c19605c4f6"
-  integrity sha512-3Zpw9ZX0gBJ7f2VoAkt0dgXoMbIC89YRygQaRFy7hkAStE/M0MSrcoVwhq1KH2/30cGLPmf6O+/HO1bwQ76mRw==
+edgedb@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/edgedb/-/edgedb-0.21.0.tgz#3a3310442711010479d02a4030d8835327cc465f"
+  integrity sha512-GLzdb7iiJMLpxj2/WQ0kUk0bglUe4FKgqyUAvXpc8fnsVtVE4z+dZ5QhjziCZFd1kg70Vi/C+WLKxpyqEGxylw==
 
 ee-first@1.1.1:
   version "1.1.1"

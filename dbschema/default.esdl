@@ -8,6 +8,8 @@ module default {
       constraint exclusive;
     };
     property email -> str;
-    multi link watchList -> WatchListItem;
+    multi link watchList -> WatchListItem {
+      on target delete allow;
+    }
   }
 };

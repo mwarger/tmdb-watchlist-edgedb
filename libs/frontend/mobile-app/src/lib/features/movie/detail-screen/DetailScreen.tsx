@@ -41,6 +41,8 @@ export function MovieDetailScreen({
   let watchedMovieId = ''
   if (watchlist) {
     watchedMovieId = watchlist.find((m) => m.id === id)?.watchListId
+    console.log('watchedMovieId', watchedMovieId)
+    
   }
 
   React.useEffect(() => {

@@ -49,22 +49,12 @@ export async function createWatchlistItem(data: {
   return result
 }
 
-export async function deleteWatchlistItem(data: {
-  movieId: string
-  userId: string
-}) {
-  const item = e.select(e.WatchListItem, (watchListItem) => ({
-    filter: e.op(watchListItem.movieId, '=', data.movieId),
+export async function deleteWatchlistItem(data: { id: string }) {
+  const deletion = e.delete(e.WatchListItem, (watchListItem) => ({
+    filter: e.op(watchListItem.id, '=', e.uuid(data.id)),
   }))
 
-  const updateQuery = e.update(e.User, (user) => ({
-    filter: e.op(user.uid, '=', e.select(data.userId)),
-    set: {
-      watchList: { '-=': item },
-    },
-  }))
-
-  const result = await updateQuery.run(client)
+  const result = await deletion.run(client)
 
   return result
 }
@@ -74,6 +64,7 @@ export async function getWatchlist(userId: string) {
   const query = e.select(e.User, (user) => ({
     filter: e.op(user.uid, '=', userId),
     watchList: {
+      id: true,
       movieId: true,
     },
   }))

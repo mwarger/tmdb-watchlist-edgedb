@@ -1,29 +1,10 @@
 import e from './codegen'
 import * as edgedb from 'edgedb'
 
-export async function upsertUser(
-  {
-    uid,
-    email,
-  }: {
-    uid: string
-    email?: string
-  },
-  client: edgedb.Client
-) {
-  const upsertQuery = e
-    .insert(e.User, {
-      uid,
-      email,
-    })
-    .unlessConflict((user) => ({
-      on: user.uid,
-      else: e.update(user, () => ({
-        set: {
-          email: email ?? null,
-        },
-      })),
-    }))
+export async function upsertUser(client: edgedb.Client) {
+  const upsertQuery = e.insert(e.User, {
+    uid: e.global.current_user,
+  })
 
   return upsertQuery.run(client)
 }

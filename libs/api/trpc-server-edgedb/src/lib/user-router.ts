@@ -19,11 +19,7 @@ export const userDataRouter = createRouter()
     output: z.void(),
     input: z.void(),
     async resolve({ ctx }) {
-      // upsert with edgedb
-      await upsertUser({
-        uid: ctx.uid,
-        email: ctx.uid,
-      }, ctx.client)
+      await upsertUser(ctx.client)
     },
   })
   .mutation('addToWatchlist', {

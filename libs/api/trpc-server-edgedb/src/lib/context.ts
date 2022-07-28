@@ -1,6 +1,6 @@
 import * as trpc from '@trpc/server'
 import * as trpcNext from '@trpc/server/adapters/next'
-import { client } from '@conference-demos/edgedb-client'
+import { client as defaultClient } from '@conference-demos/edgedb-client'
 
 export const createContext = async ({
   req,
@@ -8,7 +8,7 @@ export const createContext = async ({
 }: trpcNext.CreateNextContextOptions) => {
   const TMDB_TOKEN = 'Bearer ' + process.env['TMDB_BEARER_TOKEN']
 
-  const response = { req, res, client, TMDB_TOKEN, uid: '' }
+  const response = { req, res, client: defaultClient, TMDB_TOKEN, uid: '' }
 
   const bearerToken = req.headers.authorization || ''
   const bearerTokenParts = bearerToken.split('Bearer ')
@@ -16,6 +16,13 @@ export const createContext = async ({
 
   if (bearerTokenValue) {
     response.uid = bearerTokenValue
+
+    // create scoped client for edgedb auth
+    const scopedClient = defaultClient.withGlobals({
+      current_user: response.uid,
+    })
+
+    response.client = scopedClient
     return response
   }
 

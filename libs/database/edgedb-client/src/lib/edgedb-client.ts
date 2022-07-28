@@ -1,17 +1,16 @@
-import e, { $infer } from './codegen'
+import e from './codegen'
 import * as edgedb from 'edgedb'
 
-export const client = edgedb.createClient({
-  logging: true,
-})
-
-export async function upsertUser({
-  uid,
-  email,
-}: {
-  uid: string
-  email?: string
-}) {
+export async function upsertUser(
+  {
+    uid,
+    email,
+  }: {
+    uid: string
+    email?: string
+  },
+  client: edgedb.Client
+) {
   const upsertQuery = e
     .insert(e.User, {
       uid,
@@ -29,27 +28,26 @@ export async function upsertUser({
   return upsertQuery.run(client)
 }
 
-export async function createWatchlistItem(data: {
-  movieId: string
-  userId: string
-}) {
+export async function createWatchlistItem(
+  data: {
+    movieId: string
+  },
+  client: edgedb.Client
+) {
   const insertQuery = e.insert(e.WatchListItem, {
     movieId: data.movieId,
+    user: e.select(e.User).assert_single(),
   })
 
-  const updateQuery = e.update(e.User, (user) => ({
-    filter: e.op(user.uid, '=', data.userId),
-    set: {
-      watchList: { '+=': insertQuery },
-    },
-  }))
-
-  const result = await updateQuery.run(client)
+  const result = await insertQuery.run(client)
 
   return result
 }
 
-export async function deleteWatchlistItem(data: { id: string }) {
+export async function deleteWatchlistItem(
+  data: { id: string },
+  client: edgedb.Client
+) {
   const deletion = e.delete(e.WatchListItem, (watchListItem) => ({
     filter: e.op(watchListItem.id, '=', e.uuid(data.id)),
   }))
@@ -60,13 +58,10 @@ export async function deleteWatchlistItem(data: { id: string }) {
 }
 
 // get watchlist
-export async function getWatchlist(userId: string) {
-  const query = e.select(e.User, (user) => ({
-    filter: e.op(user.uid, '=', userId),
-    watchList: {
-      id: true,
-      movieId: true,
-    },
+export async function getWatchlist(client: edgedb.Client) {
+  const query = e.select(e.WatchListItem, () => ({
+    id: true,
+    movieId: true,
   }))
 
   const result = await query.run(client)

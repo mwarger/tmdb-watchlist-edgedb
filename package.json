@@ -29,7 +29,7 @@
     "@trpc/server": "^9.25.3",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
-    "edgedb": "^0.21.0",
+    "edgedb": "^0.21.1",
     "expo": "45.0.5",
     "expo-dev-client": "~1.0.0",
     "expo-linking": "^3.1.0",

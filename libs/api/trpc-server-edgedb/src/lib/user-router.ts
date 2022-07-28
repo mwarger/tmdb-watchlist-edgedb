@@ -23,7 +23,7 @@ export const userDataRouter = createRouter()
       await upsertUser({
         uid: ctx.uid,
         email: ctx.uid,
-      })
+      }, ctx.client)
     },
   })
   .mutation('addToWatchlist', {
@@ -32,10 +32,12 @@ export const userDataRouter = createRouter()
       id: z.string(),
     }),
     async resolve({ ctx, input }) {
-      createWatchlistItem({
-        movieId: input.id,
-        userId: ctx.uid,
-      })
+      createWatchlistItem(
+        {
+          movieId: input.id,
+        },
+        ctx.client
+      )
     },
   })
   .mutation('removeFromWatchlist', {
@@ -43,18 +45,16 @@ export const userDataRouter = createRouter()
     input: z.object({
       id: z.string(),
     }),
-    async resolve({ input }) {
-      await deleteWatchlistItem({ id: input.id })
+    async resolve({ input, ctx }) {
+      await deleteWatchlistItem({ id: input.id }, ctx.client)
     },
   })
   .query('watchlist', {
     input: z.void(),
     async resolve({ ctx }) {
-      const uid = ctx.uid
+      const watchlist = await getWatchlist(ctx.client)
 
-      const watchlist = await getWatchlist(uid)
-
-      const watchList = watchlist?.watchList ?? []
+      const watchList = watchlist ?? []
 
       // make movie promises for each movie in watchlist
       const moviePromises =

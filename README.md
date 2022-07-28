@@ -8,7 +8,7 @@ Expo + tRPC + EdgeDB + NextJS + Nx + zod + react-hook-form + solito
 
 ## Setup
 
-Add your database and TMDB bearer token (instructions [here](https://www.themoviedb.org/documentation/api?language=en-US)) to the `.env` file.  If you aren't using Postgres, make the appropriate changes to the Prisma schema.
+Add your database and TMDB bearer token (instructions [here](https://www.themoviedb.org/documentation/api?language=en-US)) to the `.env` file.
 
 Install EdgeDB for your system - https://www.edgedb.com/install
 

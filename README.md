@@ -16,12 +16,13 @@ Install EdgeDB for your system - https://www.edgedb.com/install
 
 Run `edgedb project init` in the root of the project to setup the existing schema in a new instance.
 
+Run `yarn edgedb:codegen` to generate the TypeScript client library.
+
 To check out your data, run, run `edgedb ui` and check it out!
 
 To be able to see your data, make sure to add the UID whose data you'd like to see to the globals section at the top of the page.
 
 <img src="./edgedb-globals.png" width="200" />
-
 
 ## Running the App
 
